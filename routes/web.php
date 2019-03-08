@@ -15,6 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+    Route::get('/tasks', function () {
+        return view('tasks.index');
+    });
+
+    Route::get('/tasks/create', function () {
+        return view('layouts.index');
+    });
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
