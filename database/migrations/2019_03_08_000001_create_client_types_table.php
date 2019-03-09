@@ -14,7 +14,7 @@ class CreateClientTypesTable extends Migration
     public function up()
     {
         Schema::create('client_types', function (Blueprint $table) {
-            $table->integer('id');
+            $table->bigIncrements('id');
             $table->string('name', 50);
             $table->text('description')->nullable();
             $table->boolean('is_published')->default(false);

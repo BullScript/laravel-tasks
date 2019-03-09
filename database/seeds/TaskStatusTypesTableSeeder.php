@@ -17,8 +17,6 @@ class TaskStatusTypesTableSeeder extends Seeder
 
         $intOrder = 1;
 
-        DB::table('task_status_types')->truncate();
-
         foreach ($arrStrNames as $strName) {
 
             $arrMixInsertData = [];

@@ -17,8 +17,6 @@ class ClientTypesTableSeeder extends Seeder
 
         $intOrder = 1;
 
-        DB::table('client_types')->truncate();
-
         foreach ($arrStrNames as $strName) {
 
             $arrMixInsertData = [];
