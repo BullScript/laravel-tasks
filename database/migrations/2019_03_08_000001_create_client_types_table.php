@@ -14,10 +14,11 @@ class CreateClientTypesTable extends Migration
     public function up()
     {
         Schema::create('client_types', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name', 100);
-            $table->string('sub_domain', 20);
-            $table->timestamps();
+            $table->integer('id');
+            $table->string('name', 50);
+            $table->text('description')->nullable();
+            $table->boolean('is_published')->default(false);
+            $table->integer('order');
         });
     }
 
