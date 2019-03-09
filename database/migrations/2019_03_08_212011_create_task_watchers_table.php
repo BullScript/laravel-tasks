@@ -14,8 +14,8 @@ class CreateTaskWatchersTable extends Migration
     public function up()
     {
         Schema::create('task_watchers', function (Blueprint $table) {
-            $table->unsignedBigInteger('client_type_id');
-            $table->foreign('client_type_id')->references('id')->on('client_types');
+            $table->unsignedBigInteger('client_id');
+            $table->foreign('client_id')->references('id')->on('clients');
             $table->unsignedBigInteger('task_id');
             $table->foreign('task_id')->references('id')->on('tasks');
             $table->unsignedBigInteger('assignee_id');

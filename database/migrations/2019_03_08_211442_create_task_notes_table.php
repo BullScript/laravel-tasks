@@ -19,8 +19,8 @@ class CreateTaskNotesTable extends Migration
             $table->foreign('task_id')->references('id')->on('tasks');
             $table->text('note');
             $table->json('extra_data')->nullable();
-            $table->unsignedBigInteger('client_type_id');
-            $table->foreign('client_type_id')->references('id')->on('client_types');
+            $table->unsignedBigInteger('client_id');
+            $table->foreign('client_id')->references('id')->on('clients');
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users');
             $table->unsignedBigInteger('updated_by');

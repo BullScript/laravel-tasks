@@ -22,8 +22,8 @@ class CreateTaskTimeLogsTable extends Migration
             $table->timestamp('start_time');
             $table->timestamp('end_time')->nullable();
             $table->json('extra_data')->nullable();
-            $table->unsignedBigInteger('client_type_id');
-            $table->foreign('client_type_id')->references('id')->on('client_types');
+            $table->unsignedBigInteger('client_id');
+            $table->foreign('client_id')->references('id')->on('clients');
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

@@ -14,8 +14,8 @@ class CreateProjectTeammatesTable extends Migration
     public function up()
     {
         Schema::create('project_teammates', function (Blueprint $table) {
-            $table->unsignedBigInteger('client_type_id');
-            $table->foreign('client_type_id')->references('id')->on('client_types');
+            $table->unsignedBigInteger('client_id');
+            $table->foreign('client_id')->references('id')->on('clients');
             $table->unsignedBigInteger('project_id');
             $table->foreign('project_id')->references('id')->on('projects');
             $table->unsignedBigInteger('assignee_id');
