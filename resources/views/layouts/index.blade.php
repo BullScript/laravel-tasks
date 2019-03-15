@@ -1,43 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	@include('layouts.header')
-</head>
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
-	<!-- Navbar -->
-	@include('layouts.nav')
+    <head>
+    	@include('layouts.header')
+    </head>
+    <body class="hold-transition sidebar-mini">
+    	<div id="app">
+    		<div class="wrapper">
 
-	<!-- Main Sidebar Container -->
-	@include('layouts.aside')
+            	@include('layouts.nav')
+            	@include('layouts.aside')
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-	@include('layouts.breadcrumb')
-    <!-- /.content-header -->
+    			<div class="content-wrapper">
+    				@include('layouts.breadcrumb')
+    				<section class="content">
+    					<div class="container-fluid">
+            				@yield('content')
+                  		</div>
+                	</section>
+    			</div>
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-		@yield('content')
-      </div><!--/. container-fluid -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-
-	@include('layouts.footer')
-</div>
-<!-- ./wrapper -->
-
-    <!-- REQUIRED SCRIPTS -->
-	@include('layouts.scripts')
-</body>
+                <!-- Control Sidebar -->
+                <aside class="control-sidebar control-sidebar-dark">
+                <!-- Control sidebar content goes here -->
+                </aside>
+            	@include('layouts.footer')
+            </div>
+    	</div>
+    	@include('layouts.scripts')
+    </body>
 </html>

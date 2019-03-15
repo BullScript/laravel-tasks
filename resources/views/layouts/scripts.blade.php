@@ -1,3 +1,6 @@
+<!-- Vue component support -->
+<script src="{{ asset('js/app.js') }}" defer></script>
+
 <!-- jQuery -->
 <script src="{{ url('/') }}/admin_lte/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap -->
@@ -18,4 +21,5 @@
 <script src="{{ url('/') }}/admin_lte/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- ChartJS 1.0.2 -->
 <script src="{{ url('/') }}/admin_lte/plugins/chartjs-old/Chart.min.js"></script>
+
 
