@@ -115,6 +115,17 @@
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
             class="fa fa-th-large"></i></a>
       </li>
+      <li>
+		<div class="user-panel d-flex">
+			<div class="image">
+				<img src="{{ url('/') }}/admin_lte/dist/img/user2-160x160.jpg"
+					class="img-circle elevation-2" alt="User Image">
+			</div>
+			<div class="info">
+				<a href="#" class="d-block">Alexander Pierce</a>
+			</div>
+		</div>
+	  </li>
     </ul>
   </nav>
   <!-- /.navbar -->

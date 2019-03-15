@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,18 +13,52 @@
 |
 */
 
+/** visitors are allow */
+
+Route::group(['middleware' => ['web']], function () {
+
+    Auth::routes();
+
+    /** Authorised Users are allow */
+    Route::group(['middleware' => ['auth']], function () {
+
+        Route::resources([
+            'clients' => 'Admin\TaskController',
+        ]);
+
+        /** Client Admin Panel Users are allow */
+        Route::group(['middleware' => ['clientadmin'], 'prefix' => '/client' ], function () {
+
+            Route::resources([
+                'clients' => 'Client\TaskMetricController',
+            ]);
+        });
+
+        /** Only BullScript Users are allow */
+        Route::group(['middleware' => ['superadmin'], 'prefix' => '/admin' ], function () {
+
+            Route::resources([
+                'clients' => 'Admin\ClientController',
+            ]);
+        });
+    });
+});
+
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-    Route::get('/tasks', function () {
-        return view('tasks.index');
-    });
+Route::get('/doc', function () {
+    return view('documentation.index');
+});
 
-    Route::get('/tasks/create', function () {
-        return view('layouts.index');
-    });
+Route::get('/tasks', function () {
+    return view('tasks.index');
+});
 
-Auth::routes();
+Route::get('/tasks/create', function () {
+    return view('layouts.index');
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
