@@ -19,5 +19,3 @@
 <!-- ChartJS 1.0.2 -->
 <script src="{{ url('/') }}/admin_lte/plugins/chartjs-old/Chart.min.js"></script>
 
-<!-- PAGE SCRIPTS -->
-<script src="{{ url('/') }}/admin_lte/dist/js/pages/dashboard2.js"></script>
