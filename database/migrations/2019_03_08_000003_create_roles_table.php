@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
-class CreateTaskTimeLogsTable extends Migration
+class CreateRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,19 +14,24 @@ class CreateTaskTimeLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('task_time_logs', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('task_id');
-            $table->foreign('task_id')->references('id')->on('tasks');
-            $table->text('description')->nullable();
-            $table->timestamp('start_time');
-            $table->timestamp('end_time')->nullable();
+            $table->string('name')->nullable();
+            $table->string('description')->nullable();
+            $table->unsignedBigInteger('parent_role_id')->nullable();
+            $table->foreign('parent_role_id')->references('id')->on('roles');
             $table->json('extra_data')->nullable();
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')->references('id')->on('clients');
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users');
             $table->timestamp('created_at')->default(DB::raw('now()'));
+            $table->unsignedBigInteger('updated_by');
+            $table->foreign('updated_by')->references('id')->on('users');
+            $table->timestamp('updated_at')->default(DB::raw('now()'));
+            $table->unsignedBigInteger('deleted_by')->nullable();
+            $table->foreign('deleted_by')->references('id')->on('users');
+            $table->softDeletes();
         });
     }
 
@@ -37,6 +42,6 @@ class CreateTaskTimeLogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('task_time_logs');
+        Schema::dropIfExists('roles');
     }
 }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class CreateClientsTable extends Migration
 {
@@ -17,19 +18,20 @@ class CreateClientsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name', 100);
             $table->string('sub_domain', 20);
-            $table->timestamp('trial_ends_at')->nullable();
-            $table->timestamp('ends_at')->nullable();
-
+            $table->date('start_at')->nullable();
+            $table->date('end_at')->nullable();
+            $table->date('trial_ends_at')->nullable();
             $table->json('extra_data')->nullable();
             $table->unsignedBigInteger('client_type_id');
             $table->foreign('client_type_id')->references('id')->on('client_types');
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users');
             $table->unsignedBigInteger('updated_by');
+            $table->timestamp('created_at')->default(DB::raw('now()'));
             $table->foreign('updated_by')->references('id')->on('users');
+            $table->timestamp('updated_at')->default(DB::raw('now()'));
             $table->unsignedBigInteger('deleted_by')->nullable();
             $table->foreign('deleted_by')->references('id')->on('users');
-            $table->timestamps();
             $table->softDeletes();
         });
     }

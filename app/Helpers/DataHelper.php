@@ -8,9 +8,9 @@ class DataHelper
     {
         return [
             'Free-Trial',
-            'Test',
             'Subscriber',
-            'Enterprise'
+            'Enterprise',
+            'Test',
         ];
     }
 

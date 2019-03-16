@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
-class CreateSprintsTable extends Migration
+class CreateProfilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +14,16 @@ class CreateSprintsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sprints', function (Blueprint $table) {
+        Schema::create('profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->unsignedBigInteger('project_id');
-            $table->foreign('project_id')->references('id')->on('projects');
-            $table->date('start_date')->nullable();
-            $table->date('release_date')->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('middle_name')->nullable();
+            $table->string('empoyee_id')->nullable();
+            $table->unsignedBigInteger('parent_profile_id')->nullable();
+            $table->foreign('parent_profile_id')->references('id')->on('profiles');
+            $table->unsignedBigInteger('role_id')->nullable();
+            $table->foreign('role_id')->references('id')->on('roles');
             $table->json('extra_data')->nullable();
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')->references('id')->on('clients');
@@ -44,6 +46,6 @@ class CreateSprintsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sprints');
+        Schema::dropIfExists('profiles');
     }
 }
