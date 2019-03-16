@@ -9,6 +9,8 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import VuejsPaginate from 'vuejs-paginate'
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -21,6 +23,10 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('task-index', require('./components/tasks/Index.vue').default);
+
+
+Vue.component('paginate', VuejsPaginate);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

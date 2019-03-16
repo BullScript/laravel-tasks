@@ -26,8 +26,8 @@ class CreateClientsTable extends Migration
             $table->foreign('client_type_id')->references('id')->on('client_types');
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users');
-            $table->unsignedBigInteger('updated_by');
             $table->timestamp('created_at')->default(DB::raw('now()'));
+            $table->unsignedBigInteger('updated_by');
             $table->foreign('updated_by')->references('id')->on('users');
             $table->timestamp('updated_at')->default(DB::raw('now()'));
             $table->unsignedBigInteger('deleted_by')->nullable();
