@@ -26,6 +26,8 @@
     "dependencies": {
         "@riophae/vue-treeselect": "0.0.38",
         "vue-multiselect": "^2.1.4",
-        "vuejs-paginate": "^2.1.0"
+        "vue-toasted": "^1.1.26",
+        "vuejs-paginate": "^2.1.0",
+        "vuelidate": "^0.7.4"
     }
 }

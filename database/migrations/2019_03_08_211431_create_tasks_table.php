@@ -35,8 +35,8 @@ class CreateTasksTable extends Migration
             $table->unsignedBigInteger('qa_id')->nullable();
             $table->foreign('qa_id')->references('id')->on('users');
             $table->integer('story_points')->default(0);
-            $table->time('estimated_time')->default(0);
-            $table->time('spend_time')->default(0);
+            $table->timestamp('estimated_time');
+            $table->timestamp('spend_time')->nullable();
             $table->json('extra_data')->nullable();
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')->references('id')->on('clients');
