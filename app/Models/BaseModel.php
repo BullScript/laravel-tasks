@@ -13,7 +13,7 @@ class BaseModel extends Model
      *
      * @return void
      */
-    protected static function boot($objModel)
+    protected static function boot()
     {
         parent::boot();
 
@@ -21,7 +21,7 @@ class BaseModel extends Model
         static::addGlobalScope(new ClientScope());
 
         /** Call on save method */
-        self::observe($objModel);
+        //self::observe();
     }
 
     /**

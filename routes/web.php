@@ -27,10 +27,10 @@ Route::group(['middleware' => ['web']], function () {
         ]);
 
         /** Client Admin Panel Users are allow */
-        Route::group(['middleware' => ['clientadmin'], 'prefix' => '/client' ], function () {
+        Route::group(['middleware' => ['clientadmin'] ], function () {
 
             Route::resources([
-                'clients' => 'Client\TaskMetricController',
+                'projects' => 'Client\ProjectController',
             ]);
         });
 

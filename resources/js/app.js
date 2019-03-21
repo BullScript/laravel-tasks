@@ -24,7 +24,7 @@ import VuejsPaginate from 'vuejs-paginate'
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('task-index', require('./components/tasks/Index.vue').default);
-
+Vue.component('project-index', require('./components/clients/projects/Index.vue').default);
 
 Vue.component('paginate', VuejsPaginate);
 

@@ -14,7 +14,7 @@ class Project extends BaseModel
      */
     protected static function boot()
     {
-        parent::boot(new self());
+        parent::boot();
     }
 
     /**

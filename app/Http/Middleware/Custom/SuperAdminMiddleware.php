@@ -2,6 +2,7 @@
 namespace App\Http\Middleware\Custom;
 
 use Closure;
+use App\Helpers\PermissionHelper;
 
 class SuperAdminMiddleware
 {
@@ -15,9 +16,8 @@ class SuperAdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        // check if user is not Admin then redirect to homepage
-        if (! auth()->check() || ! $request->user()->isSuperAdmin()) {
-            return redirect('/login');
+        if(! auth()->check() || false == PermissionHelper::isSuperAdmin($request->user()) ) {
+            return redirect('/');
         }
 
         return $next($request);
