@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Models\Sprints\Sprint;
+use App\Models\Tasks\Task;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class SprintController extends Controller
+class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +42,10 @@ class SprintController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Sprint  $sprint
+     * @param  \App\Models\Tasks\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function show(Sprint $sprint)
+    public function show(Task $task)
     {
         //
     }
@@ -53,10 +53,10 @@ class SprintController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Sprint  $sprint
+     * @param  \App\Models\Tasks\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sprint $sprint)
+    public function edit(Task $task)
     {
         //
     }
@@ -65,10 +65,10 @@ class SprintController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Sprint  $sprint
+     * @param  \App\Models\Tasks\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sprint $sprint)
+    public function update(Request $request, Task $task)
     {
         //
     }
@@ -76,10 +76,10 @@ class SprintController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Sprint  $sprint
+     * @param  \App\Models\Tasks\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sprint $sprint)
+    public function destroy(Task $task)
     {
         //
     }

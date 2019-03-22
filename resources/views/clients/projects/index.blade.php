@@ -49,9 +49,9 @@
                 			<td>{!! $project->key !!}</td>
                 			<td>{!! $project->url !!}</td>
                 			<td>{!! $project->lead_id !!}</td>
-                			<td><a class="btn btn-default" href="{!! route('projects.show', $project->id) !!}"><span class='fas fa-eye'></span></a></td>
-                			<td><a class="btn btn-default" href="{!! route('projects.edit', $project->id) !!}"><span class="fas fa-edit"></span></a></td>
-            				<td><a class="btn btn-default" href="{!! route('projects.edit', $project->id) !!}"><span class="fas fa-trash-alt"></span></a></td>
+                			<td><a class="btn btn-link" href="{!! route('projects.show', $project->id) !!}"><span class='fa fa-eye'></span></a></td>
+                			<td><a class="btn btn-link" href="{!! route('projects.edit', $project->id) !!}"><span class="fa fa-edit"></span></a></td>
+            				<td><a class="btn btn-link" href="{!! route('projects.edit', $project->id) !!}"><span class="fa fa-trash"></span></a></td>
                 		</tr>
                 		@endforeach
                 	@else

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Projects\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Mail;
 
 class ProjectController extends Controller
 {
@@ -16,6 +17,14 @@ class ProjectController extends Controller
      */
     public function index()
     {
+//         $user = auth()->user();
+
+//         dd(Mail::send('emails.welcome', ['user' => $user], function ($m) use ($user) {
+//             $m->from('neha@mt.com', 'Required money');
+
+//             $m->to('prajaktakhairnar23@gmail.com', $user->name)->subject('Urgent required money!');
+//         }));
+
         $objProjects = Project::paginate(15);
 
         return view('clients.projects.index')
@@ -66,9 +75,17 @@ class ProjectController extends Controller
      * @param  \App\Models\Projects\Project  $objProject
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $objProject)
+    public function show($id, Project $objProject)
     {
-        //
+        $project = $objProject->find($id);
+
+        dd($project);
+        return view('users.show')
+        ->withUserDetail($userDetail)
+        ->withUsers($this->users)
+        ->withUserTypes($this->userTypes);
+
+        return view('clients.projects.show')->with('objProject', $objProject);
     }
 
     /**

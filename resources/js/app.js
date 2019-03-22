@@ -9,11 +9,11 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-import Vuelidate from 'vuelidate'
+import VeeValidate from 'vee-validate';
 import Toasted from 'vue-toasted';
 import VuejsPaginate from 'vuejs-paginate'
 
-Vue.use(Vuelidate)
+Vue.use(VeeValidate);
 Vue.use(Toasted)
 Vue.component('paginate', VuejsPaginate);
 /**

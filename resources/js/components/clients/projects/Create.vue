@@ -15,7 +15,8 @@
                                 <label>Name</label>
                             </div>
                             <div class="col-md-6">
-                                <input class="form-control" name="name" dusk="name" value="" placeholder="Name">
+                                <input v-validate="'required'" class="form-control" name="name" dusk="name" value="" placeholder="Name">
+                                <span class="text-danger">{{ errors.first('name') }}</span>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -70,9 +71,6 @@
                 this.$toasted.error("Error: Invalid key name.", {position: 'bottom-right'});
                 this.project = this.prop_project;
                 console.log(this.project);
-            },
-            validate() {
-                
             },
             submit() {
                 if(this.validate()) {

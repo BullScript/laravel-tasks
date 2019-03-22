@@ -17,20 +17,42 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['web']], function () {
 
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
     Auth::routes();
 
     /** Authorised Users are allow */
     Route::group(['middleware' => ['auth']], function () {
 
+        Route::get('/dashboard', 'Client\DashboardController@index')->name('dashboard');
+
         Route::resources([
-            'clients' => 'Admin\TaskController',
+            'projects' => 'Client\ProjectController',
+        ]);
+
+        Route::resources([
+            'sprints' => 'Client\SprintController',
         ]);
 
         /** Client Admin Panel Users are allow */
         Route::group(['middleware' => ['clientadmin'] ], function () {
 
             Route::resources([
-                'projects' => 'Client\ProjectController',
+                'profiles' => 'Client\ProfileController',
+            ]);
+
+            Route::resources([
+                'task-meterics' => 'Client\TaskMetricController',
+            ]);
+
+            Route::resources([
+                'settings' => 'Client\SettingController',
+            ]);
+
+            Route::resources([
+                'tickets' => 'Client\TicketController',
             ]);
         });
 
@@ -42,23 +64,6 @@ Route::group(['middleware' => ['web']], function () {
             ]);
         });
     });
-});
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/doc', function () {
-    return view('documentation.index');
-});
-
-Route::get('/tasks', function () {
-    return view('tasks.index');
-});
-
-Route::get('/tasks/create', function () {
-    return view('layouts.index');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
