@@ -22,4 +22,10 @@
 <!-- ChartJS 1.0.2 -->
 <script src="{{ url('/') }}/admin_lte/plugins/chartjs-old/Chart.min.js"></script>
 
+<script type="text/javascript">
+$(document).on('click', '.dropdown-menu-button', function (e) {
+    e.stopPropagation()
+});
+</script>
+
 

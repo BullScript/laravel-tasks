@@ -19,7 +19,6 @@
               </p>
             </a>
           </li>
-          <li class="nav-header">EXAMPLES</li>
           <li class="nav-item">
             <a href="/projects" class="nav-link">
               <i class="nav-icon fa fa-book"></i>
@@ -38,10 +37,23 @@
               <p>Tasks</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="/tasks" class="nav-link">
+              <i class="nav-icon fa fa-calendar-check-o"></i>
+              <p>Scrum</p>
+            </a>
+          </li>
 		  <li class="nav-item">
-            <a href="/task-metrics" class="nav-link">
+            <a href="/tasks" class="nav-link">
+              <i class="nav-icon fa fa-clock-o"></i>
+              <p>Timer</p>
+            </a>
+          </li>
+          <li class="nav-header">Admin</li>
+		  <li class="nav-item">
+            <a href="/metric" class="nav-link">
               <i class="nav-icon fa fa-line-chart"></i>
-              <p>Task Metrics</p>
+              <p>Metric</p>
             </a>
           </li>
           <li class="nav-item">

@@ -42,7 +42,6 @@
 			@csrf
 		</form>
       </li>
-
     </ul>
   </nav>
   <!-- /.navbar -->

@@ -1,6 +1,7 @@
 @extends('layouts.index')
 
 @section('content')
+		<project-index :prop_paginate_projects="{{ $jsonProjects }}"></project-index>
 <div class="row justify-content-center">
 	<div class="col-md-12">
 		<div class="card">
@@ -51,7 +52,7 @@
                 			<td>{!! $project->lead_id !!}</td>
                 			<td><a class="btn btn-link" href="{!! route('projects.show', $project->id) !!}"><span class='fa fa-eye'></span></a></td>
                 			<td><a class="btn btn-link" href="{!! route('projects.edit', $project->id) !!}"><span class="fa fa-edit"></span></a></td>
-            				<td><a class="btn btn-link" href="{!! route('projects.edit', $project->id) !!}"><span class="fa fa-trash"></span></a></td>
+            				<td><a class="btn btn-link" href="{!! route('projects.destroy', $project->id) !!}"><span class="fa fa-trash"></span></a></td>
                 		</tr>
                 		@endforeach
                 	@else

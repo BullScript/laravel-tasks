@@ -7,6 +7,7 @@ use App\Models\Projects\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\SaveProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -25,7 +26,7 @@ class ProjectController extends Controller
 //             $m->to('prajaktakhairnar23@gmail.com', $user->name)->subject('Urgent required money!');
 //         }));
 
-        $objProjects = Project::paginate(15);
+        $objProjects = Project::paginate(5);
 
         return view('clients.projects.index')
             ->with('projects', $objProjects)
@@ -49,24 +50,25 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Project $objProject)
+    public function store(SaveProjectRequest $request)
     {
-        $objProject->client_id = 1;
+        $objProject = new Project();
+
         $objProject->name = $request->name;
         $objProject->key = $request->key;
         $objProject->url = $request->url;
+
+        $objProject->client_id = auth()->user()->client_id;
         $objProject->created_by = auth()->user()->id;
         $objProject->updated_by = auth()->user()->id;
 
         if ($objProject->save()) {
-            Session::flash('flash_message', 'Project created successfully.');
-            return redirect()->route('projects.index');
+            return response()
+                ->json(['name' => 'Abigail', 'state' => 'CA'])
+                ->withCallback($request->all());
         }
 
         return redirect()->back();
-
-
-        //
     }
 
     /**
@@ -75,9 +77,9 @@ class ProjectController extends Controller
      * @param  \App\Models\Projects\Project  $objProject
      * @return \Illuminate\Http\Response
      */
-    public function show($id, Project $objProject)
+    public function show($intId, Project $objProject)
     {
-        $project = $objProject->find($id);
+        $objProject = $objProject->find($intId);
 
         dd($project);
         return view('users.show')
@@ -94,8 +96,10 @@ class ProjectController extends Controller
      * @param  \App\Models\Projects\Project  $objProject
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $objProject)
+    public function edit($intId, Project $objProject)
     {
+        $objProject = $objProject->find($intId);
+
         return view('clients.projects.create')->with('objProject', $objProject);
     }
 
@@ -106,9 +110,21 @@ class ProjectController extends Controller
      * @param  \App\Models\Projects\Project  $objProject
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $objProject)
+    public function update($intId, SaveProjectRequest $request)
     {
-        //
+        $objProject = Project::find($intId);
+
+        $objProject->name = $request->name;
+        $objProject->key = $request->key;
+        $objProject->url = $request->url;
+
+        $objProject->client_id = auth()->user()->client_id;
+        $objProject->created_by = auth()->user()->id;
+        $objProject->updated_by = auth()->user()->id;
+
+        if ($objProject->save()) {
+            return response()->json(true);
+        }
     }
 
     /**
