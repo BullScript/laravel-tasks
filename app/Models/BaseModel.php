@@ -21,7 +21,7 @@ class BaseModel extends Model
         static::addGlobalScope(new ClientScope());
 
         /** Call on save method */
-        //self::observe();
+        get_called_class()::observe(BaseModelObserve::class);
     }
 
     /**
@@ -37,7 +37,7 @@ class BaseModel extends Model
      */
     public function getExtraDataAttribute()
     {
-        return (isset($this->attributes['extra_data'])) ? json_decode($this->attributes['extra_data'], true) : [];
+        return (isset($this->attributes['extra_data'])) ? (is_array($this->attributes['extra_data']) ? $this->attributes['extra_data'] : json_decode($this->attributes['extra_data'], true)) : [];
     }
 
     /**

@@ -26,7 +26,7 @@ class ProjectController extends Controller
 //             $m->to('prajaktakhairnar23@gmail.com', $user->name)->subject('Urgent required money!');
 //         }));
 
-        $objProjects = Project::paginate(5);
+        $objProjects = Project::paginate(10);
 
         return view('clients.projects.index')
             ->with('projects', $objProjects)
@@ -41,7 +41,7 @@ class ProjectController extends Controller
     public function create(Project $objProject)
     {
         return view('clients.projects.create')
-            ->with('objProject', $objProject);
+            ->with('objProject', new Project());
     }
 
     /**
@@ -58,17 +58,13 @@ class ProjectController extends Controller
         $objProject->key = $request->key;
         $objProject->url = $request->url;
 
-        $objProject->client_id = auth()->user()->client_id;
-        $objProject->created_by = auth()->user()->id;
-        $objProject->updated_by = auth()->user()->id;
-
         if ($objProject->save()) {
-            return response()
-                ->json(['name' => 'Abigail', 'state' => 'CA'])
-                ->withCallback($request->all());
+            return response([
+                'message' => 'Project created successfully.',
+            ]);
         }
 
-        return redirect()->back();
+        return parent::defaultFailResource();
     }
 
     /**
@@ -81,13 +77,8 @@ class ProjectController extends Controller
     {
         $objProject = $objProject->find($intId);
 
-        dd($project);
-        return view('users.show')
-        ->withUserDetail($userDetail)
-        ->withUsers($this->users)
-        ->withUserTypes($this->userTypes);
-
-        return view('clients.projects.show')->with('objProject', $objProject);
+        return view('clients.projects.show')
+            ->with('objProject', $objProject);
     }
 
     /**
@@ -118,13 +109,13 @@ class ProjectController extends Controller
         $objProject->key = $request->key;
         $objProject->url = $request->url;
 
-        $objProject->client_id = auth()->user()->client_id;
-        $objProject->created_by = auth()->user()->id;
-        $objProject->updated_by = auth()->user()->id;
-
         if ($objProject->save()) {
-            return response()->json(true);
+            return response([
+                'message' => 'Project updated successfully.',
+            ]);
         }
+
+        return parent::defaultFailResource();
     }
 
     /**

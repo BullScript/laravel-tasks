@@ -37,6 +37,7 @@ Vue.component('task-index', require('./components/tasks/Index.vue').default);
 //Project
 Vue.component('project-index', require('./components/clients/projects/Index.vue').default);
 Vue.component('project-create', require('./components/clients/projects/Create.vue').default);
+Vue.component('project-show', require('./components/clients/projects/Show.vue').default);
 
 
 

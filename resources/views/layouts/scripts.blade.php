@@ -23,9 +23,9 @@
 <script src="{{ url('/') }}/admin_lte/plugins/chartjs-old/Chart.min.js"></script>
 
 <script type="text/javascript">
-$(document).on('click', '.dropdown-menu-button', function (e) {
-    e.stopPropagation()
+$('.dropdown').click(function(){
+
+    $('.dropdown-menu').toggleClass('show');
+
 });
 </script>
-
-

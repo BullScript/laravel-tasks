@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\ProjectUniqueKeyNameRule;
 
 class SaveProjectRequest extends FormRequest
 {
@@ -40,7 +41,7 @@ class SaveProjectRequest extends FormRequest
     {
         return [
             'name' => 'required|alpha_dash|max:255',
-            'key' => 'required|alpha_dash|max:20',
+            'key' => ['required', 'alpha_dash', 'max:20', new ProjectUniqueKeyNameRule()],
             'url' => 'url|max:255'
         ];
     }

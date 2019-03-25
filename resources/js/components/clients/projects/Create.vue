@@ -1,41 +1,49 @@
 <template>
     <div class="card card-default">
-        <form method="POST" action="/projects" id="form_project">
+        <form id="form_project">
+            <div class="card-footer">
+              <button type="button" class="btn btn-info float-right" @click="submit">Save</button>
+              <a href="/projects" type="btn btn-link" class="btn btn-link float-right">Cancel</a>
+            </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group row">
                             <div class="col-md-2">
-                                <label>Name</label>
+                                <label class="pull-right">Name<i class="text-danger">*</i></label>
                             </div>
                             <div class="col-md-6">
                                 <input v-validate="'required|alpha'" v-model="project.name" class="form-control" name="name" dusk="name" placeholder="Name">
-                                <span class="text-danger">{{ errors.first('name') }}</span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-2">
-                                <label>Key</label>
-                            </div>
-                            <div class="col-md-6">
-                                <input v-validate.continues="'required|alpha|max:20'" v-model="project.key" class="form-control" name="key" dusk="key" placeholder="Project Identifire">
-                                <ul>
-                                  <li class="text-danger" v-for="error in errors.collect('key')">{{ error }}</li>
+                                <ul class="list-group">
+                                  <li class="list-group-item text-danger border-0" v-for="error in errors.collect('name')">{{ error }}</li>
                                 </ul>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-2">
-                                <label>Url</label>
+                                <label class="pull-right">Key<i class="text-danger">*</i></label>
                             </div>
                             <div class="col-md-6">
-                                <input v-validate="'required|url'" v-model="project.url" class="form-control" name="url" dusk="url" placeholder="URL">
-                                <span class="text-danger">{{ errors.first('url') }}</span>
+                                <input v-validate.continues="'required|alpha|max:20'" v-model="project.key" class="form-control" name="key" dusk="key" placeholder="Project Identifire">
+                                <ul class="list-group">
+                                  <li class="list-group-item text-danger border-0" v-for="error in errors.collect('key')">{{ error }}</li>
+                                </ul>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-2">
-                                <label>Project Lead</label>
+                                <label class="pull-right">URL</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input v-validate="'required|url'" v-model="project.url" class="form-control" name="url" dusk="url" placeholder="URL">
+                                <ul class="list-group">
+                                  <li class="list-group-item text-danger border-0" v-for="error in errors.collect('url')">{{ error }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-2">
+                                <label class="pull-right">Project Lead</label>
                             </div>
                             <div class="col-md-6">
                                 <input class="form-control">
@@ -76,22 +84,31 @@
         },
         methods: {
             setDefault() {
-                this.project = this.prop_project;
+                this.project = (Array.isArray(this.prop_project)) ? {} : this.prop_project;
             },
             submit() {
                 if(this.errors.items.length > 0) {
-                    this.$toasted.error("<b>*Error: The given data was invalid.</b>", {position: 'bottom-right'});
+                    this.$toasted.error("<b>*Error: Invalid form details.</b>", {position: 'bottom-right'});
                     return false;
                 }
-                axios.put('/projects/'+this.project.id, this.project).then(response => {
-                    this.$toasted.success("<b>*successfully.</b>", {position: 'bottom-right'});
-                    window.location.href = "/projects";
+                
+                var intId = (this.project.id) ? this.project.id : '';
+                var strMethod = (this.project.id) ? 'put' : 'post';
+                
+                axios({
+                    method: strMethod,
+                    url: '/projects/' + intId,
+                    data: this.project
+                }).then(response => {
+                console.log(response.data);
+                    this.$toasted.success("<b>Done : "+response.data.message+"</b>", {position: 'bottom-right'});
+                    setTimeout(function(){ window.location.href = "/projects"; }, 3000);
                 }).catch(error => {
                     if (error.response.status === 422) {
                         for (const index in error.response.data.errors){
-                            this.errors.items.push({vmId:2, field: index, msg:error.response.data.errors[index][0]});
+                            this.errors.items.push({vmId:this.errors.vmId, field: index, msg:error.response.data.errors[index][0]});
                         }
-                        this.$toasted.error("<b>*Error: The given data was invalid.</b>", {position: 'bottom-right'});
+                        this.$toasted.error("<b>*Error: "+error.response.data.message+"</b>", {position: 'bottom-right'});
                     }
                 });
             }

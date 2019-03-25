@@ -8,6 +8,12 @@ class Project extends BaseModel
     use ProjectRelationship, ProjectRepository;
 
     /**
+     * typecast
+     * @var array
+     */
+    protected $casts = ['extra_data' => 'array'];
+
+    /**
      * The "booting" method of the model.
      *
      * @return void
@@ -25,7 +31,9 @@ class Project extends BaseModel
     public static function defineModel()
     {
         return [
-            'parent_id'
+            'defined_fields' => [
+                'client_id'
+            ]
         ];
     }
 }
