@@ -114,7 +114,7 @@
                 }).then(response => {
                 console.log(response.data);
                     this.$toasted.success("<b>Done : "+response.data.message+"</b>", {position: 'bottom-right'});
-                    setTimeout(function(){ window.location.href = "/projects"; }, 3000);
+                    //setTimeout(function(){ window.location.href = "/projects"; }, 3000);
                 }).catch(error => {
                     if (error.response.status === 422) {
                         for (const index in error.response.data.errors){

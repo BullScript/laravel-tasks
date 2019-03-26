@@ -13,9 +13,9 @@ window.Vue = require('vue');
 import Vuex from 'vuex'
 import VeeValidate from 'vee-validate';
 import Toasted from 'vue-toasted';
+import VueGoodTablePlugin from 'vue-good-table';
 import VuejsPaginate from 'vuejs-paginate'
 import Treeselect from '@riophae/vue-treeselect'
-import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 
 /** fontawesome - start */
 
@@ -28,11 +28,16 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 /** fontawesome - end */
 
+// import the styles 
+import 'vue-good-table/dist/vue-good-table.css'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+
 Vue.use(Vuex)
 Vue.use(VeeValidate);
 Vue.use(Toasted)
-Vue.component('treeselect', Treeselect);
+Vue.use(VueGoodTablePlugin);
 Vue.component('paginate', VuejsPaginate);
+Vue.component('treeselect', Treeselect);
 
 /**
  * The following block of code may be used to automatically register your
@@ -46,7 +51,6 @@ Vue.component('paginate', VuejsPaginate);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('task-index', require('./components/tasks/Index.vue').default);
 
 //Project
 Vue.component('project-index', require('./components/clients/projects/Index.vue').default);

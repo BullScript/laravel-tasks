@@ -39,7 +39,7 @@ class Project extends BaseModel
 
     public static function saveProject($objRequest, $intId = 0) {
 
-        $objProject = self::firstOrCreate(['id' => $intId]);
+        $objProject = self::find($intId) ?? new self();
 
         $objProject->name = $objRequest->name;
         $objProject->key = $objRequest->key;
@@ -50,7 +50,7 @@ class Project extends BaseModel
 
             $arrIntUserIds = [];
 
-            foreach($objRequest->teammates as $intKey => $intUserId) {
+            foreach((array) $objRequest->teammates as $intKey => $intUserId) {
                 $arrIntUserIds[$intUserId] = ['client_id' => auth()->user()->client_id];
             }
 
