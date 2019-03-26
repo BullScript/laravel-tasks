@@ -46,11 +46,11 @@ class Project extends BaseModel
         $objProject->url = $objRequest->url;
         $objProject->lead_id = $objRequest->lead_id;
 
-        if ($objProject->save()) {
+        if ($objProject->save() && is_array($objRequest->teammates)) {
 
             $arrIntUserIds = [];
 
-            foreach((array) $objRequest->teammates as $intKey => $intUserId) {
+            foreach($objRequest->teammates as $intKey => $intUserId) {
                 $arrIntUserIds[$intUserId] = ['client_id' => auth()->user()->client_id];
             }
 
