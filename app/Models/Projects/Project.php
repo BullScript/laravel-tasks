@@ -36,4 +36,27 @@ class Project extends BaseModel
             ]
         ];
     }
+
+    public static function saveProject($objRequest, $intId = 0) {
+
+        $objProject = self::firstOrCreate(['id' => $intId]);
+
+        $objProject->name = $objRequest->name;
+        $objProject->key = $objRequest->key;
+        $objProject->url = $objRequest->url;
+        $objProject->lead_id = $objRequest->lead_id;
+
+        if ($objProject->save()) {
+
+            $arrIntUserIds = [];
+
+            foreach($objRequest->teammates as $intKey => $intUserId) {
+                $arrIntUserIds[$intUserId] = ['client_id' => auth()->user()->client_id];
+            }
+
+            $objProject->users()->sync($arrIntUserIds);
+        }
+
+        return true;
+    }
 }

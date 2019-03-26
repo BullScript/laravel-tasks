@@ -46,7 +46,20 @@
                                 <label class="pull-right">Project Lead</label>
                             </div>
                             <div class="col-md-6">
-                                <input class="form-control">
+                                <treeselect
+                                    v-model="project.lead_id"
+                                    :options="userOptions"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-2">
+                                <label class="pull-right">Project Teammates</label>
+                            </div>
+                            <div class="col-md-6">
+                                <treeselect
+                                    v-model="project.teammates"
+                                    :multiple="true"
+                                    :options="userOptions"/>
                             </div>
                         </div>
                     </div>
@@ -63,10 +76,12 @@
 
 <script>
     export default {
-        props: ['prop_project'],
+        props: ['prop_project', 'prop_user_options'],
         data () {
             return {
                 project: {},
+                value:[],
+                userOptions: []
             }
         },
         computed: {
@@ -85,6 +100,7 @@
         methods: {
             setDefault() {
                 this.project = (Array.isArray(this.prop_project)) ? {} : this.prop_project;
+                this.userOptions = this.prop_user_options;
             },
             submit() {
                 if(this.errors.items.length > 0) {
@@ -102,7 +118,7 @@
                 }).then(response => {
                 console.log(response.data);
                     this.$toasted.success("<b>Done : "+response.data.message+"</b>", {position: 'bottom-right'});
-                    setTimeout(function(){ window.location.href = "/projects"; }, 3000);
+                    //setTimeout(function(){ window.location.href = "/projects"; }, 3000);
                 }).catch(error => {
                     if (error.response.status === 422) {
                         for (const index in error.response.data.errors){

@@ -12,7 +12,7 @@ class Controller extends BaseController
 
     const HTTP_STATUS_CODE_UNPROCESSABLE_ENTITY = 422;
 
-    public static function defaultFailResource(array $arrStrErrors = [])
+    public static function failedResponse(array $arrStrErrors = [])
     {
         return response([
             'message' => 'Something went wrong.',
@@ -20,5 +20,10 @@ class Controller extends BaseController
                 'error' => $arrStrErrors
             ]
         ], self::HTTP_STATUS_CODE_UNPROCESSABLE_ENTITY);
+    }
+
+    public static function passResponse(string $strMessage)
+    {
+        return response(['message' => $strMessage]);
     }
 }

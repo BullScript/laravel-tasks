@@ -14,10 +14,13 @@ import Vuex from 'vuex'
 import VeeValidate from 'vee-validate';
 import Toasted from 'vue-toasted';
 import VuejsPaginate from 'vuejs-paginate'
+import Treeselect from '@riophae/vue-treeselect'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 
 Vue.use(Vuex)
 Vue.use(VeeValidate);
 Vue.use(Toasted)
+Vue.component('treeselect', Treeselect);
 Vue.component('paginate', VuejsPaginate);
 
 /**

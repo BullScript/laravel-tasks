@@ -37,7 +37,17 @@
                                 <label class="pull-right">Project Lead</label>
                             </div>
                             <div class="col-md-6">
-                                <span>{{ project.project_lead_id }}</span>
+                                <span v-if= userOptions[project.lead_id]>{{ userOptions[project.lead_id] }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-2">
+                                <label class="pull-right">Project Teammates</label>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-group">
+                                  <li class="list-group-item border-0" v-for="assignee in project.teammates">{{ userOptions[assignee] }}</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -54,10 +64,11 @@
 
 <script>
     export default {
-        props: ['prop_project'],
+        props: ['prop_project', 'prop_user_options'],
         data () {
             return {
                 project: {},
+                userOptions: []
             }
         },
         computed: {
@@ -75,7 +86,8 @@
         },
         methods: {
             setDefault() {
-                this.project = (Array.isArray(this.prop_project)) ? {} : this.prop_project;
+                this.project = this.prop_project;
+                this.userOptions = this.prop_user_options;
             },
             edit() {
                 window.location.href = '/projects/' + this.project.id + '/edit';

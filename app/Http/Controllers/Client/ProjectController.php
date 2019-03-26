@@ -8,9 +8,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\SaveProjectRequest;
+use App\Models\Users\User;
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
+    protected $arrUserOptions;
+
+    public function __construct() {
+
+        $this->arrUserOptions = User::all(['id', DB::raw("CONCAT(name, '-[', email, ']') AS label")]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -38,33 +46,26 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Project $objProject)
+    public function create()
     {
         return view('clients.projects.create')
-            ->with('objProject', new Project());
+            ->with('objProject', new Project())
+            ->with('arrUserOptions', $this->arrUserOptions->toJson());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $objRequest
      * @return \Illuminate\Http\Response
      */
-    public function store(SaveProjectRequest $request)
+    public function store(SaveProjectRequest $objRequest)
     {
-        $objProject = new Project();
-
-        $objProject->name = $request->name;
-        $objProject->key = $request->key;
-        $objProject->url = $request->url;
-
-        if ($objProject->save()) {
-            return response([
-                'message' => 'Project created successfully.',
-            ]);
+        if(Project::saveProject($objRequest)) {
+            return parent::passResponse('Project created successfully.');
         }
 
-        return parent::defaultFailResource();
+        return parent::failedResponse();
     }
 
     /**
@@ -75,10 +76,13 @@ class ProjectController extends Controller
      */
     public function show($intId, Project $objProject)
     {
-        $objProject = $objProject->find($intId);
+        $objProject = $objProject->findOrFail($intId);
+
+        $objProject->teammates = $objProject->projectTeammates()->pluck('assignee_id')->toArray();
 
         return view('clients.projects.show')
-            ->with('objProject', $objProject);
+            ->with('objProject', $objProject)
+            ->with('arrUserOptions', $this->arrUserOptions->pluck('label', 'id')->toJson());
     }
 
     /**
@@ -91,31 +95,25 @@ class ProjectController extends Controller
     {
         $objProject = $objProject->find($intId);
 
-        return view('clients.projects.create')->with('objProject', $objProject);
+        return view('clients.projects.create')
+            ->with('objProject', $objProject)
+            ->with('arrUserOptions', $this->arrUserOptions->toJson());
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $objRequest
      * @param  \App\Models\Projects\Project  $objProject
      * @return \Illuminate\Http\Response
      */
-    public function update($intId, SaveProjectRequest $request)
+    public function update($intId, SaveProjectRequest $objRequest)
     {
-        $objProject = Project::find($intId);
-
-        $objProject->name = $request->name;
-        $objProject->key = $request->key;
-        $objProject->url = $request->url;
-
-        if ($objProject->save()) {
-            return response([
-                'message' => 'Project updated successfully.',
-            ]);
+        if(Project::saveProject($objRequest, $intId)) {
+            return parent::passResponse('Project updated successfully.');
         }
 
-        return parent::defaultFailResource();
+        return parent::failedResponse();
     }
 
     /**
