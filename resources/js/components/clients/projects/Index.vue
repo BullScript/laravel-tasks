@@ -10,53 +10,39 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr class="bg-info text-uppercase">
-                                    <th></th>
                                     <th>#ID</th>
-                                    <th class="">Project Name</th>
+                                    <th>Project Name</th>
                                     <th>Key</th>
                                     <th>Url</th>
                                     <th>Project Lead</th>
-                                    <th colspan='3'>Actions</th>
+                                    <th colspan='2'>Actions</th>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                                        </div>
-                                    </td>
                                     <td><input class="form-control" name="project_filter['name']" dusk="name" value=""></td>
                                     <td><input class="form-control" name="project_filter['key']" dusk="key" value=""></td>
                                     <td><input class="form-control" name="project_filter['url']" dusk="url" value=""></td>
                                     <td><input class="form-control" name="project_filter['project_lead']" dusk="project_lead" value=""></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
                                 </tr>
                             </thead>
                             <tbody>
                             <tr v-for="item in this.paginatedDetails.data">
-                                <td>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input">
-                                    </div>
-                                </td>
                                 <td>{{ item.id }}</td>
                                 <td>{{ item.name }}</td>
                                 <td>{{ item.key }}</td>
                                 <td>{{ item.url }}</td>
                                 <td>{{ item.lead_id }}</td>
-                                <td><a class="btn btn-default" href=""><span class='fas fa-eye'></span></a></td>
-                                <td><a class="btn btn-default" href=""><span class="fas fa-edit"></span></a></td>
-                                <td><a class="btn btn-default" href=""><span class="fas fa-trash-alt"></span></a></td>
-
+                                <td><a class="btn btn-link" :href="'/projects/' + item.id"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+                                <td><a class="btn btn-link" :href="'/projects/' + item.id + '/edit'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="card-footer clearfix">
                         <paginate
-                            :page-count="paginatedDetails.total"
-                            :click-handler="paginatedData"
+                            :page-count="paginatedDetails.last_page"
+                            :click-handler="clickCallback"
                             :prev-text="'Prev'"
                             :next-text="'Next'"
                             :container-class="'pagination'"
@@ -90,8 +76,17 @@
                 this.paginatedDetails = this.prop_paginate_projects;
                 console.log(this.paginatedDetails);
             },
-            paginatedData() {
-                return this.paginatedDetails;
+            clickCallback(pageNum) {
+                axios.get('/projects?page-click=1&page=' + pageNum).then(response => {
+                    this.paginatedDetails = response.data;
+                }).catch(error => {
+                    if (error.response.status === 422) {
+                        for (const index in error.response.data.errors){
+                            this.errors.items.push({vmId:this.errors.vmId, field: index, msg:error.response.data.errors[index][0]});
+                        }
+                        this.$toasted.error("<b>*Error: "+error.response.data.message+"</b>", {position: 'bottom-right'});
+                    }
+                });
             }
         }
     }

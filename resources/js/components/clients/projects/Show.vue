@@ -54,10 +54,6 @@
                 </div>
                 <!-- /.row -->
             </div>
-            <div class="card-footer">
-              <button type="button" class="btn btn-danger float-right" @click="edit">Edit</button>
-              <a href="/projects" type="btn btn-link" class="btn btn-link float-right">Cancel</a>
-            </div>
         </form>
     </div>
 </template>

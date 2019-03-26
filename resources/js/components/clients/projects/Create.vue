@@ -1,10 +1,6 @@
 <template>
     <div class="card card-default">
         <form id="form_project">
-            <div class="card-footer">
-              <button type="button" class="btn btn-info float-right" @click="submit">Save</button>
-              <a href="/projects" type="btn btn-link" class="btn btn-link float-right">Cancel</a>
-            </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">

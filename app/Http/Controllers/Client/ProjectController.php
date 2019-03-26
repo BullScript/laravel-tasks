@@ -34,11 +34,13 @@ class ProjectController extends Controller
 //             $m->to('prajaktakhairnar23@gmail.com', $user->name)->subject('Urgent required money!');
 //         }));
 
-        $objProjects = Project::paginate(10);
+        $objProjects = Project::orderBy('id', 'DESC')->paginate(10);
 
-        return view('clients.projects.index')
-            ->with('projects', $objProjects)
-            ->with('jsonProjects', $objProjects->toJson());
+        if(request('page-click')) {
+            return response()->json($objProjects);
+        } else {
+            return view('clients.projects.index')->with('jsonProjects', $objProjects->toJson());
+        }
     }
 
     /**
