@@ -1,11 +1,16 @@
 <?php
-
 namespace App\Models\Projects;
 
 use App\Models\ProjectTeammates\ProjectTeammate;
 use App\Models\Users\User;
+use App\Models\Sprints\Sprint;
 
 trait ProjectRelationship {
+
+    public function sprints()
+    {
+        return $this->hasMany(Sprint::class);
+    }
 
     public function projectTeammates()
     {

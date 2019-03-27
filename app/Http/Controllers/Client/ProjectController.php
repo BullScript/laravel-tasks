@@ -10,15 +10,11 @@ use Illuminate\Support\Facades\DB;
 class ProjectController extends Controller
 {
 
-    protected $arrUserOptions;
-
     private $objProject;
 
     public function __construct(Project $objProject)
     {
         $this->objProject = $objProject;
-
-        $this->arrUserOptions = User::all(['id',DB::raw("CONCAT(name, '-[', email, ']') AS label")]);
     }
 
     /**
@@ -36,10 +32,11 @@ class ProjectController extends Controller
 
         // $m->to('prajaktakhairnar23@gmail.com', $user->name)->subject('Urgent required money!');
         // }));
-        $objProjects = $this->objProject->all();
+
+        $arrObjProjects = $this->objProject->all();
 
         return view('clients.projects.index')
-        ->with('jsonProjects', $objProjects->toJson());
+        ->with('jsonProjects', $arrObjProjects->toJson());
     }
 
     /**
@@ -49,9 +46,11 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        $arrUserOptions = User::all(['id', DB::raw("CONCAT(name, '-[', email, ']') AS label")]);
+
         return view('clients.projects.create')
         ->with('objProject', $this->objProject)
-        ->with('arrUserOptions', $this->arrUserOptions->toJson());
+        ->with('arrUserOptions', $arrUserOptions->toJson());
     }
 
     /**
@@ -81,9 +80,11 @@ class ProjectController extends Controller
 
         $objProject->teammates = $objProject->projectTeammates()->pluck('assignee_id')->toArray();
 
+        $arrUserOptions = User::all(['id', DB::raw("CONCAT(name, '-[', email, ']') AS label")]);
+
         return view('clients.projects.show')
         ->with('objProject', $objProject)
-        ->with('arrUserOptions', $this->arrUserOptions->pluck('label', 'id')->toJson());
+        ->with('arrUserOptions', $arrUserOptions->pluck('label', 'id')->toJson());
     }
 
     /**
@@ -98,9 +99,11 @@ class ProjectController extends Controller
 
         $objProject->teammates = $objProject->projectTeammates()->pluck('assignee_id')->toArray();
 
+        $arrUserOptions = User::all(['id', DB::raw("CONCAT(name, '-[', email, ']') AS label")]);
+
         return view('clients.projects.create')
         ->with('objProject', $objProject)
-        ->with('arrUserOptions', $this->arrUserOptions->toJson());
+        ->with('arrUserOptions', $arrUserOptions->toJson());
     }
 
     /**

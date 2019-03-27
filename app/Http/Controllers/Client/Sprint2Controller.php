@@ -4,19 +4,27 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveSprintRequest;
 use App\Models\Projects\Project;
-use Illuminate\Support\Facades\DB;
 use App\Models\Sprints\Sprint;
+use Illuminate\Support\Facades\DB;
 
-class SprintController extends Controller
+class Sprint2Controller extends Controller
 {
 
-    private $objSprint;
-    private $objProject;
+    protected $arrProjectOptions;
 
-    public function __construct(Sprint $objSprint, Project $objProject)
+    private $objSprint;
+
+    public function __construct(Sprint $objSprint)
     {
         $this->objSprint = $objSprint;
-        $this->objProject = $objProject;
+
+        \DB::enableQueryLog();
+
+        dd($this->objSprint->all());
+        $this->arrProjectOptions = Project::all(['id', DB::raw("CONCAT(name, '-[', key, ']') AS label")]);
+
+        dd(\DB::getQueryLog());
+        dd($this->arrProjectOptions);
     }
 
     /**
@@ -26,15 +34,6 @@ class SprintController extends Controller
      */
     public function index()
     {
-        // use Illuminate\Support\Facades\Mail;
-        // $user = auth()->user();
-
-        // dd(Mail::send('emails.welcome', ['user' => $user], function ($m) use ($user) {
-        // $m->from('neha@mt.com', 'Required money');
-
-        // $m->to('prajaktakhairnar23@gmail.com', $user->name)->subject('Urgent required money!');
-        // }));
-
         $arrObjSprints = $this->objSprint->all();
 
         return view('clients.sprints.index')
@@ -48,11 +47,9 @@ class SprintController extends Controller
      */
     public function create()
     {
-        $arrProjectOptions = $this->objProject->all(['id', DB::raw("name AS label")]);
-
         return view('clients.sprints.create')
         ->with('objSprint', $this->objSprint)
-        ->with('arrProjectOptions', $arrProjectOptions->toJson());
+        ->with('arrProjectOptions', $this->arrProjectOptions->toJson());
     }
 
     /**
@@ -80,11 +77,9 @@ class SprintController extends Controller
     {
         $objSprint = $this->objSprint->findOrFail($intId);
 
-        $arrProjectOptions = $this->objProject->all(['id', DB::raw("name AS label")]);
-
         return view('clients.sprints.show')
         ->with('objSprint', $objSprint)
-        ->with('arrProjectOptions', $arrProjectOptions->pluck('label', 'id')->toJson());
+        ->with('arrProjectOptions', $this->arrProjectOptions->pluck('label', 'id')->toJson());
     }
 
     /**
@@ -97,11 +92,9 @@ class SprintController extends Controller
     {
         $objSprint = $this->objSprint->find($intId);
 
-        $arrProjectOptions = $this->objProject->all(['id', DB::raw("name AS label")]);
-
         return view('clients.sprints.create')
         ->with('objSprint', $objSprint)
-        ->with('arrProjectOptions', $arrProjectOptions->toJson());
+        ->with('arrProjectOptions', $this->arrProjectOptions->toJson());
     }
 
     /**
@@ -126,7 +119,7 @@ class SprintController extends Controller
      * @param \App\Models\Sprints\Sprint $objSprint
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy(Sprint $objSprint)
     {
         //
     }

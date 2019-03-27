@@ -1,53 +1,51 @@
 <template>
     <div class="card card-default">
-        <form id="form_project">
+        <form id="form_sprint">
             <div class="card-footer">
               <button type="button" class="btn btn-danger float-right" @click="edit">Edit</button>
-              <a href="/projects" type="btn btn-link" class="btn btn-link float-right">Cancel</a>
+              <a href="/sprints" type="btn btn-link" class="btn btn-link float-right">Cancel</a>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group row">
                             <div class="col-md-2">
+                                <label class="pull-right">Project</label>
+                            </div>
+                            <div class="col-md-6">
+                                <span v-if= projectOptions[sprint.project_id]>{{ projectOptions[sprint.project_id] }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-2">
                                 <label class="pull-right">Name</label>
                             </div>
                             <div class="col-md-6">
-                                <span>{{ project.name }}</span>
+                                <span>{{ sprint.name }}</span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-2">
-                                <label class="pull-right">Key</label>
+                                <label class="pull-right">Description</label>
                             </div>
                             <div class="col-md-6">
-                                <span>{{ project.key }}</span>
+                                <p>{{ sprint.description }}</p>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-2">
-                                <label class="pull-right">URL</label>
+                                <label class="pull-right">Start Date</label>
                             </div>
                             <div class="col-md-6">
-                                <span>{{ project.url }}</span>
+                                <span>{{ sprint.start_date }}</span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-2">
-                                <label class="pull-right">Project Lead</label>
+                                <label class="pull-right">Release Date</label>
                             </div>
                             <div class="col-md-6">
-                                <span v-if= userOptions[project.lead_id]>{{ userOptions[project.lead_id] }}</span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-2">
-                                <label class="pull-right">Project Teammates</label>
-                            </div>
-                            <div class="col-md-6">
-                                <ul class="list-group">
-                                  <li class="list-group-item border-0" v-for="assignee in project.teammates">{{ userOptions[assignee] }}</li>
-                                </ul>
+                                <span>{{ sprint.release_date }}</span>
                             </div>
                         </div>
                     </div>
@@ -60,11 +58,11 @@
 
 <script>
     export default {
-        props: ['prop_project', 'prop_user_options'],
+        props: ['prop_sprint', 'prop_project_options'],
         data () {
             return {
-                project: {},
-                userOptions: []
+                sprint: {},
+                projectOptions: []
             }
         },
         computed: {
@@ -82,11 +80,11 @@
         },
         methods: {
             setDefault() {
-                this.project = this.prop_project;
-                this.userOptions = this.prop_user_options;
+                this.sprint = this.prop_sprint;
+                this.projectOptions = this.prop_project_options;
             },
             edit() {
-                window.location.href = '/projects/' + this.project.id + '/edit';
+                window.location.href = '/sprints/' + this.sprint.id + '/edit';
             }
         }
     }

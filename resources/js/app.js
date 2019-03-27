@@ -10,12 +10,14 @@ require('./main');
 
 window.Vue = require('vue');
 
-import Vuex from 'vuex'
+import Vuex from 'vuex';
 import VeeValidate from 'vee-validate';
 import Toasted from 'vue-toasted';
 import VueGoodTablePlugin from 'vue-good-table';
-import VuejsPaginate from 'vuejs-paginate'
-import Treeselect from '@riophae/vue-treeselect'
+import VuejsPaginate from 'vuejs-paginate';
+import Treeselect from '@riophae/vue-treeselect';
+import Datepicker from 'vuejs-datepicker';
+import Chart from 'chart.js';
 
 /** fontawesome - start */
 
@@ -38,6 +40,7 @@ Vue.use(Toasted)
 Vue.use(VueGoodTablePlugin);
 Vue.component('paginate', VuejsPaginate);
 Vue.component('treeselect', Treeselect);
+Vue.component('datepicker', Datepicker);
 
 /**
  * The following block of code may be used to automatically register your
@@ -57,7 +60,10 @@ Vue.component('project-index', require('./components/clients/projects/Index.vue'
 Vue.component('project-create', require('./components/clients/projects/Create.vue').default);
 Vue.component('project-show', require('./components/clients/projects/Show.vue').default);
 
-
+//Sprint
+Vue.component('sprint-index', require('./components/clients/sprints/Index.vue').default);
+Vue.component('sprint-create', require('./components/clients/sprints/Create.vue').default);
+Vue.component('sprint-show', require('./components/clients/sprints/Show.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

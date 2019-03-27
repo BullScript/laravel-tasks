@@ -2,11 +2,17 @@
 namespace App\Models;
 
 use App\Scopes\ClientScope;
-use Illuminate\Database\Eloquent\Model;
 use App\Observers\BaseModelObserve;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class BaseModel extends Model
+class BaseModel extends Authenticatable
 {
+
+    /**
+     * typecast
+     * @var array
+     */
+    protected $casts = ['extra_data' => 'array'];
 
     /**
      * The "booting" method of the model.

@@ -12,6 +12,7 @@
             	@include('layouts.aside')
 
     			<div class="content-wrapper">
+    				@include('layouts.alert')
     				@include('layouts.breadcrumb')
     				<section class="content">
     					<div class="container-fluid">

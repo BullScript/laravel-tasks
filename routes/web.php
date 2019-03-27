@@ -28,30 +28,19 @@ Route::group(['middleware' => ['web']], function () {
 
         Route::get('/dashboard', 'Client\DashboardController@index')->name('dashboard');
 
-        Route::resources([
-            'projects' => 'Client\ProjectController',
-        ]);
-
-        Route::resources([
-            'sprints' => 'Client\SprintController',
-        ]);
-
         /** Client Admin Panel Users are allow */
         Route::group(['middleware' => ['clientadmin'] ], function () {
 
+
             Route::resources([
-                'profiles' => 'Client\ProfileController',
+                'projects' => 'Client\ProjectController',
+                'sprints' => 'Client\SprintController',
+                'tasks' => 'Client\TaskController',
             ]);
 
             Route::resources([
                 'task-meterics' => 'Client\TaskMetricController',
-            ]);
-
-            Route::resources([
                 'settings' => 'Client\SettingController',
-            ]);
-
-            Route::resources([
                 'tickets' => 'Client\TicketController',
             ]);
         });

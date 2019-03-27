@@ -28,10 +28,13 @@
         "@fortawesome/free-solid-svg-icons": "^5.8.1",
         "@fortawesome/vue-fontawesome": "^0.1.6",
         "@riophae/vue-treeselect": "0.0.38",
+        "chart.js": "^2.8.0",
         "vee-validate": "^2.2.0",
+        "vue-chartjs": "^3.4.2",
         "vue-good-table": "^2.16.3",
         "vue-multiselect": "^2.1.4",
         "vue-toasted": "^1.1.26",
+        "vuejs-datepicker": "^1.5.4",
         "vuejs-paginate": "^2.1.0",
         "vuex": "^3.1.0"
     }

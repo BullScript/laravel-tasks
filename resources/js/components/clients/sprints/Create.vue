@@ -1,15 +1,31 @@
 <template>
     <div class="card card-default">
-        <form id="form_project">
+        <form id="form_sprint">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group row">
                             <div class="col-md-2">
+                                <label class="pull-right">Project<i class="text-danger">*</i></label>
+                            </div>
+                            <div class="col-md-6">
+                                <treeselect
+                                    v-model="sprint.project_id"
+                                    :disabled="sprint.id > 0"
+                                    v-validate="'required'"
+                                    :name="'project_id'"
+                                    :options="projectOptions"/>
+                                <ul class="list-group">
+                                  <li class="list-group-item text-danger border-0" v-for="error in errors.collect('project_id')">{{ error }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-2">
                                 <label class="pull-right">Name<i class="text-danger">*</i></label>
                             </div>
                             <div class="col-md-6">
-                                <input v-validate="'required|alpha'" v-model="project.name" class="form-control" name="name" dusk="name" placeholder="Name">
+                                <input v-validate="'required|alpha'" v-model="sprint.name" class="form-control" name="name" dusk="name" placeholder="Name">
                                 <ul class="list-group">
                                   <li class="list-group-item text-danger border-0" v-for="error in errors.collect('name')">{{ error }}</li>
                                 </ul>
@@ -17,45 +33,30 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-2">
-                                <label class="pull-right">Key<i class="text-danger">*</i></label>
+                                <label class="pull-right">Description</label>
                             </div>
                             <div class="col-md-6">
-                                <input v-validate.continues="'required|alpha|max:20'" v-model="project.key" class="form-control" name="key" dusk="key" placeholder="Project Identifire">
-                                <ul class="list-group">
-                                  <li class="list-group-item text-danger border-0" v-for="error in errors.collect('key')">{{ error }}</li>
-                                </ul>
+                                 <textarea v-model="sprint.description" class="form-control textarea" placeholder="Description"></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-2">
-                                <label class="pull-right">URL</label>
+                                <label class="pull-right">Start Date</label>
                             </div>
                             <div class="col-md-6">
-                                <input v-validate="'required|url'" v-model="project.url" class="form-control" name="url" dusk="url" placeholder="URL">
-                                <ul class="list-group">
-                                  <li class="list-group-item text-danger border-0" v-for="error in errors.collect('url')">{{ error }}</li>
-                                </ul>
+                                <datepicker 
+                                    v-model="sprint.start_date" 
+                                    input-class="form-control" 
+                                    placeholder="MM/DD/YYYY">
+                                </datepicker>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-2">
-                                <label class="pull-right">Project Lead</label>
+                                <label class="pull-right">Release Date</label>
                             </div>
                             <div class="col-md-6">
-                                <treeselect
-                                    v-model="project.lead_id"
-                                    :options="userOptions"/>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-2">
-                                <label class="pull-right">Project Teammates</label>
-                            </div>
-                            <div class="col-md-6">
-                                <treeselect
-                                    v-model="project.teammates"
-                                    :multiple="true"
-                                    :options="userOptions"/>
+                                <datepicker v-model="sprint.release_date" input-class="form-control" placeholder="MM/DD/YYYY"></datepicker>
                             </div>
                         </div>
                     </div>
@@ -64,7 +65,7 @@
             </div>
             <div class="card-footer">
               <button type="button" class="btn btn-info float-right" @click="submit">Save</button>
-              <a href="/projects" type="btn btn-link" class="btn btn-link float-right">Cancel</a>
+              <a href="/sprints" type="btn btn-link" class="btn btn-link float-right">Cancel</a>
             </div>
         </form>
     </div>
@@ -72,12 +73,12 @@
 
 <script>
     export default {
-        props: ['prop_project', 'prop_user_options'],
+        props: ['prop_sprint', 'prop_project_options'],
         data () {
             return {
-                project: {},
+                sprint: {},
                 value:[],
-                userOptions: []
+                projectOptions: []
             }
         },
         computed: {
@@ -95,8 +96,8 @@
         },
         methods: {
             setDefault() {
-                this.project = (Array.isArray(this.prop_project)) ? {} : this.prop_project;
-                this.userOptions = this.prop_user_options;
+                this.sprint = (Array.isArray(this.prop_sprint)) ? {} : this.prop_sprint;
+                this.projectOptions = this.prop_project_options;
             },
             submit() {
                 if(this.errors.items.length > 0) {
@@ -104,18 +105,17 @@
                     return false;
                 }
                 
-                var intId = (this.project.id) ? this.project.id : '';
-                var strMethod = (this.project.id) ? 'put' : 'post';
+                var intId = (this.sprint.id) ? this.sprint.id : '';
+                var strMethod = (this.sprint.id) ? 'put' : 'post';
                 
                 axios({
                     method: strMethod,
-                    url: '/projects/' + intId,
-                    data: this.project
+                    url: '/sprints/' + intId,
+                    data: this.sprint
                 }).then(response => {
-                console.log(response.data);
                     if(response.data.message) {
                         this.$toasted.success("<b>Done : "+response.data.message+"</b>", {position: 'bottom-right'});
-                        window.location.href = "/projects";
+                        window.location.href = "/sprints";
                     }
                 }).catch(error => {
                     if (error.response.status === 422) {
