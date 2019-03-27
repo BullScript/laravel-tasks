@@ -51,6 +51,6 @@ class Project extends BaseModel
             $objProject->users()->sync($arrIntUserIds);
         }
 
-        return true;
+        return $objProject;
     }
 }

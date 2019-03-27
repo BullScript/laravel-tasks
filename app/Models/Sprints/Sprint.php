@@ -43,6 +43,6 @@ class Sprint extends BaseModel
 
         $objSprint->save();
 
-        return true;
+        return $objSprint;
     }
 }

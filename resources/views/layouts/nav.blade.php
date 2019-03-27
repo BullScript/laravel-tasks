@@ -4,28 +4,25 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-
+      <li class="nav-item">
+        <!-- SEARCH FORM -->
+        <form class="form-inline ml-3">
+          <div class="input-group input-group-sm">
+            <div class="row">
+    			<label class="text-center"> Project </label>
+        		<div class="ml-2">
+            		<select class="form-control">
+                    	<option>Charted</option>
+                    </select>
+                </div>
+            </div>
+          </div>
+        </form>
       </li>
     </ul>
-
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <div class="row">
-			<label class="text-center"> Project </label>
-    		<div class="ml-2">
-        		<select class="form-control">
-                	<option>Charted</option>
-                </select>
-            </div>
-        </div>
-      </div>
-    </form>
-
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <li>
+      <li class="nav-item">
 		<div class="user-panel d-flex">
 			<div class="info">
 				<a href="#" class="d-block">{{ Auth::user()->name }}</a>
