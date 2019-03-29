@@ -1,9 +1,9 @@
 <template>
     <div class="card card-default">
-        <form id="form_project">
+        <form id="form_task">
             <div class="card-footer">
               <button type="button" class="btn btn-danger float-right" @click="edit">Edit</button>
-              <a href="/projects" type="btn btn-link" class="btn btn-link float-right">Cancel</a>
+              <a href="/tasks" type="btn btn-link" class="btn btn-link float-right">Cancel</a>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -13,7 +13,7 @@
                                 <label class="pull-right">Name<i class="text-danger">*</i></label>
                             </div>
                             <div class="col-md-6">
-                                <span>{{ project.name }}</span>
+                                <span>{{ task.name }}</span>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -21,7 +21,7 @@
                                 <label class="pull-right">Key<i class="text-danger">*</i></label>
                             </div>
                             <div class="col-md-6">
-                                <span>{{ project.key }}</span>
+                                <span>{{ task.key }}</span>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -29,7 +29,7 @@
                                 <label class="pull-right">URL</label>
                             </div>
                             <div class="col-md-6">
-                                <span>{{ project.url }}</span>
+                                <span>{{ task.url }}</span>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -37,7 +37,7 @@
                                 <label class="pull-right">Project Lead</label>
                             </div>
                             <div class="col-md-6">
-                                <span v-if= userOptions[project.lead_id]>{{ userOptions[project.lead_id] }}</span>
+                                <span v-if= userOptions[task.lead_id]>{{ userOptions[task.lead_id] }}</span>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -46,7 +46,7 @@
                             </div>
                             <div class="col-md-6">
                                 <ul class="list-group">
-                                  <li class="list-group-item border-0" v-for="assignee in project.teammates">{{ userOptions[assignee] }}</li>
+                                  <li class="list-group-item border-0" v-for="assignee in task.teammates">{{ userOptions[assignee] }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -60,10 +60,10 @@
 
 <script>
     export default {
-        props: ['prop_project', 'prop_user_options'],
+        props: ['prop_task', 'prop_user_options'],
         data () {
             return {
-                project: {},
+                task: {},
                 userOptions: []
             }
         },
@@ -82,11 +82,11 @@
         },
         methods: {
             setDefault() {
-                this.project = this.prop_project;
+                this.task = this.prop_task;
                 this.userOptions = this.prop_user_options;
             },
             edit() {
-                window.location.href = '/projects/' + this.project.id + '/edit';
+                window.location.href = '/tasks/' + this.task.id + '/edit';
             }
         }
     }

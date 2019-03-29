@@ -80,6 +80,11 @@
                       type: 'datetime',
                     },
                     {
+                      label: 'Updated At',
+                      field: 'updated_at',
+                      type: 'datetime',
+                    },
+                    {
                         label: '',
                         field: 'show',
                         html:true,

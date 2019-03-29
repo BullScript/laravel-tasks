@@ -13,7 +13,7 @@ class TaskTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        $arrStrNames = DataHelper::clientTypes();
+        $arrStrNames = DataHelper::taskTypes();
 
         $intOrder = 1;
 

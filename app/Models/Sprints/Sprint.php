@@ -8,16 +8,6 @@ class Sprint extends BaseModel
     use SprintRelationship;
 
     /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-    }
-
-    /**
      * Define model attributes
      *
      * @return array
@@ -38,8 +28,14 @@ class Sprint extends BaseModel
         $objSprint->name = $objRequest->name;
         $objSprint->description = $objRequest->description;
         $objSprint->project_id = $objRequest->project_id;
-        $objSprint->start_date = date('Y/m/d', strtotime($objRequest->start_date));
-        $objSprint->release_date = date('Y/m/d', strtotime($objRequest->release_date));
+
+        if($objRequest->start_date){
+            $objSprint->start_date = date('Y/m/d', strtotime($objRequest->start_date));
+        }
+
+        if($objRequest->release_date) {
+            $objSprint->release_date = date('Y/m/d', strtotime($objRequest->release_date));
+        }
 
         $objSprint->save();
 

@@ -46,7 +46,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $arrUserOptions = User::all(['id', DB::raw("CONCAT(name, '-[', email, ']') AS label")]);
+        $arrUserOptions = User::all(['id', DB::raw("CONCAT(name, ' (', email, ')') AS label")]);
 
         return view('clients.projects.create')
         ->with('objProject', $this->objProject)
@@ -80,7 +80,7 @@ class ProjectController extends Controller
 
         $objProject->teammates = $objProject->projectTeammates()->pluck('assignee_id')->toArray();
 
-        $arrUserOptions = User::all(['id', DB::raw("CONCAT(name, '-[', email, ']') AS label")]);
+        $arrUserOptions = User::all(['id', DB::raw("CONCAT(name, ' (', email, ')') AS label")]);
 
         return view('clients.projects.show')
         ->with('objProject', $objProject)
@@ -99,7 +99,7 @@ class ProjectController extends Controller
 
         $objProject->teammates = $objProject->projectTeammates()->pluck('assignee_id')->toArray();
 
-        $arrUserOptions = User::all(['id', DB::raw("CONCAT(name, '-[', email, ']') AS label")]);
+        $arrUserOptions = User::all(['id', DB::raw("CONCAT(name, ' (', email, ')') AS label")]);
 
         return view('clients.projects.create')
         ->with('objProject', $objProject)

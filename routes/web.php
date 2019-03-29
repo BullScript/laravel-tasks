@@ -31,6 +31,7 @@ Route::group(['middleware' => ['web']], function () {
         /** Client Admin Panel Users are allow */
         Route::group(['middleware' => ['clientadmin'] ], function () {
 
+            Route::post('/tasks/add-note/{id}', 'Client\TaskController@postNote');
 
             Route::resources([
                 'projects' => 'Client\ProjectController',

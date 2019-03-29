@@ -44,11 +44,16 @@
                                 <label class="pull-right">Start Date</label>
                             </div>
                             <div class="col-md-6">
-                                <datepicker 
-                                    v-model="sprint.start_date" 
-                                    input-class="form-control" 
-                                    placeholder="MM/DD/YYYY">
-                                </datepicker>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                    <datepicker 
+                                        v-model="sprint.start_date" 
+                                        input-class="form-control" 
+                                        placeholder="MM/DD/YYYY">
+                                    </datepicker>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -56,7 +61,12 @@
                                 <label class="pull-right">Release Date</label>
                             </div>
                             <div class="col-md-6">
-                                <datepicker v-model="sprint.release_date" input-class="form-control" placeholder="MM/DD/YYYY"></datepicker>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                    <datepicker v-model="sprint.release_date" input-class="form-control" placeholder="MM/DD/YYYY"></datepicker>
+                                </div>
                             </div>
                         </div>
                     </div>

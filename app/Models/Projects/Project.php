@@ -8,16 +8,6 @@ class Project extends BaseModel
     use ProjectRelationship, ProjectRepository;
 
     /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-    }
-
-    /**
      * Define model attributes
      *
      * @return array
@@ -48,7 +38,7 @@ class Project extends BaseModel
                 $arrIntUserIds[$intUserId] = ['client_id' => auth()->user()->client_id];
             }
 
-            $objProject->users()->sync($arrIntUserIds);
+            $objProject->assigneeIdUsers()->sync($arrIntUserIds);
         }
 
         return $objProject;

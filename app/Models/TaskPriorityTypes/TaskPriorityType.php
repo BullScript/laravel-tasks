@@ -1,12 +1,12 @@
 <?php
-namespace App\Models\TaskTypes;
+namespace App\Models\TaskPriorityTypes;
 
 use App\Models\BaseModel;
 use Illuminate\Support\Facades\DB;
 
-class TaskType extends BaseModel
+class TaskPriorityType extends BaseModel
 {
-    public static function fetchTaskTypes()
+    public static function fetchTaskPriorityTypes()
     {
         return self::withoutGlobalScopes()->get(['id', DB::raw("name AS label")]);
     }

@@ -1,12 +1,12 @@
 <?php
-namespace App\Models\TaskTypes;
+namespace App\Models\TaskStatusTypes;
 
 use App\Models\BaseModel;
 use Illuminate\Support\Facades\DB;
 
-class TaskType extends BaseModel
+class TaskStatusType extends BaseModel
 {
-    public static function fetchTaskTypes()
+    public static function fetchTaskStatusTypes()
     {
         return self::withoutGlobalScopes()->get(['id', DB::raw("name AS label")]);
     }

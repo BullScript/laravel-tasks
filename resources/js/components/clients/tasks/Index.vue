@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="/projects/create" class="btn btn-danger pull-right"> Create project </a>
+                        <a href="/tasks/create" class="btn btn-danger pull-right"> Create task </a>
                         <a href="" class="btn btn-default pull-right"><i class="fa fa-filter" aria-hidden="true"></i></a>
                     </div>
                     <div class="card-body p-0">
@@ -12,15 +12,19 @@
                             <thead>
                                 <tr class="bg-info text-uppercase">
                                     <th>#ID</th>
-                                    <th>Project Name</th>
-                                    <th>Key</th>
-                                    <th>Url</th>
+                                    <th>Title</th>
+                                    <th>Task Type</th>
+                                    <th>Sprint</th>
+                                    <th>Reported By</th>
+                                    <th>Reported On</th>
                                     <th colspan='2'>Actions</th>
                                 </tr>
                                 <tr>
-                                    <td><input class="form-control" name="project_filter['name']" dusk="name" value=""></td>
-                                    <td><input class="form-control" name="project_filter['key']" dusk="key" value=""></td>
-                                    <td><input class="form-control" name="project_filter['url']" dusk="url" value=""></td>
+                                    <td></td>
+                                    <td><input class="form-control" name="task_filter['name']" dusk="name" value=""></td>
+                                    <td><input class="form-control" name="task_filter['key']" dusk="key" value=""></td>
+                                    <td><input class="form-control" name="task_filter['url']" dusk="url" value=""></td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -29,10 +33,12 @@
                             <tr v-for="item in this.paginatedDetails.data">
                                 <td>{{ item.id }}</td>
                                 <td>{{ item.name }}</td>
-                                <td>{{ item.key }}</td>
-                                <td>{{ item.url }}</td>
-                                <td><a class="btn btn-link" :href="'/projects/' + item.id"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
-                                <td><a class="btn btn-link" :href="'/projects/' + item.id + '/edit'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                                <td>{{ taskTypeNames[item.task_type_id] }}</td>
+                                <td>{{ sprintNames[item.sprint_id] }}</td>
+                                <td>{{ userNames[item.created_by] }}</td>
+                                <td>{{ item.created_at }}</td>
+                                <td><a class="btn btn-link" :href="'/tasks/' + item.id"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+                                <td><a class="btn btn-link" :href="'/tasks/' + item.id + '/edit'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -60,10 +66,13 @@
 
 <script>
     export default {
-        props: ['prop_paginate_projects'],
+        props: ['prop_paginate_tasks', 'prop_options'],
         data () {
             return {
-                paginatedDetails: []
+                paginatedDetails: [],
+                sprintNames: [],
+                userNames: [],
+                taskTypeNames:[]
             }
         },
         created() {
@@ -71,10 +80,14 @@
         },
         methods: {
             setDefault() {
-                this.paginatedDetails = this.prop_paginate_projects;
+                this.paginatedDetails = this.prop_paginate_tasks;
+                this.sprintNames = this.prop_options.sprint_names;
+                this.userNames = this.prop_options.user_names;
+                this.taskTypeNames = this.prop_options.task_type_names;
+                
             },
             clickCallback(pageNum) {
-                axios.get('/projects?page-click=1&page=' + pageNum).then(response => {
+                axios.get('/tasks?page=' + pageNum).then(response => {
                     this.paginatedDetails = response.data;
                 });
             }

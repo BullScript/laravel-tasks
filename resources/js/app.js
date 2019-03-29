@@ -17,6 +17,7 @@ import VueGoodTablePlugin from 'vue-good-table';
 import VuejsPaginate from 'vuejs-paginate';
 import Treeselect from '@riophae/vue-treeselect';
 import Datepicker from 'vuejs-datepicker';
+import VueTrix from "vue-trix";
 import Chart from 'chart.js';
 
 /** fontawesome - start */
@@ -41,6 +42,7 @@ Vue.use(VueGoodTablePlugin);
 Vue.component('paginate', VuejsPaginate);
 Vue.component('treeselect', Treeselect);
 Vue.component('datepicker', Datepicker);
+Vue.component('vueTrix', VueTrix);
 
 /**
  * The following block of code may be used to automatically register your
@@ -65,6 +67,10 @@ Vue.component('sprint-index', require('./components/clients/sprints/Index.vue').
 Vue.component('sprint-create', require('./components/clients/sprints/Create.vue').default);
 Vue.component('sprint-show', require('./components/clients/sprints/Show.vue').default);
 
+//Task
+Vue.component('task-index', require('./components/clients/tasks/Index.vue').default);
+Vue.component('task-create', require('./components/clients/tasks/Create.vue').default);
+Vue.component('task-show', require('./components/clients/tasks/Show.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

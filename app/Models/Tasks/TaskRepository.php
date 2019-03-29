@@ -6,6 +6,6 @@ trait TaskRepository {
 
     public function fetchPaginateTasks($request)
     {
-
+        return Task::paginate(10);
     }
 }

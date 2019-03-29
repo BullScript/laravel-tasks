@@ -17,7 +17,7 @@ trait ProjectRelationship {
         return $this->hasMany(ProjectTeammate::class);
     }
 
-    public function users()
+    public function assigneeIdUsers()
     {
         return $this->belongsToMany(User::class, 'project_teammates', 'project_id', 'assignee_id');
     }

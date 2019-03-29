@@ -26,15 +26,6 @@ class SprintController extends Controller
      */
     public function index()
     {
-        // use Illuminate\Support\Facades\Mail;
-        // $user = auth()->user();
-
-        // dd(Mail::send('emails.welcome', ['user' => $user], function ($m) use ($user) {
-        // $m->from('neha@mt.com', 'Required money');
-
-        // $m->to('prajaktakhairnar23@gmail.com', $user->name)->subject('Urgent required money!');
-        // }));
-
         $arrObjSprints = $this->objSprint->all();
 
         return view('clients.sprints.index')
