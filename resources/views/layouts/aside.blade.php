@@ -38,13 +38,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/tasks" class="nav-link">
+            <a href="/scrum" class="nav-link">
               <i class="nav-icon fa fa-calendar-check-o"></i>
               <p>Scrum</p>
             </a>
           </li>
 		  <li class="nav-item">
-            <a href="/tasks" class="nav-link">
+            <a href="/timer" class="nav-link">
               <i class="nav-icon fa fa-clock-o"></i>
               <p>Timer</p>
             </a>
@@ -57,9 +57,9 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/profiles" class="nav-link">
+            <a href="/users" class="nav-link">
               <i class="nav-icon fa fa-group"></i>
-              <p>Profiles</p>
+              <p>Users</p>
             </a>
           </li>
 		  <li class="nav-item">

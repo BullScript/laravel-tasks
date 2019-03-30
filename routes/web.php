@@ -28,18 +28,19 @@ Route::group(['middleware' => ['web']], function () {
 
         Route::get('/dashboard', 'Client\DashboardController@index')->name('dashboard');
 
+        Route::post('/tasks/add-note/{id}', 'Client\TaskController@postNote');
+
+        Route::resources([
+            'projects' => 'Client\ProjectController',
+            'sprints' => 'Client\SprintController',
+            'tasks' => 'Client\TaskController',
+        ]);
+
         /** Client Admin Panel Users are allow */
         Route::group(['middleware' => ['clientadmin'] ], function () {
 
-            Route::post('/tasks/add-note/{id}', 'Client\TaskController@postNote');
-
             Route::resources([
-                'projects' => 'Client\ProjectController',
-                'sprints' => 'Client\SprintController',
-                'tasks' => 'Client\TaskController',
-            ]);
-
-            Route::resources([
+                'users' => 'Client\UserController',
                 'task-meterics' => 'Client\TaskMetricController',
                 'settings' => 'Client\SettingController',
                 'tickets' => 'Client\TicketController',

@@ -71,6 +71,11 @@ Vue.component('sprint-show', require('./components/clients/sprints/Show.vue').de
 Vue.component('task-index', require('./components/clients/tasks/Index.vue').default);
 Vue.component('task-create', require('./components/clients/tasks/Create.vue').default);
 Vue.component('task-show', require('./components/clients/tasks/Show.vue').default);
+
+//Task
+Vue.component('user-index', require('./components/clients/users/Index.vue').default);
+Vue.component('user-create', require('./components/clients/users/Create.vue').default);
+Vue.component('user-show', require('./components/clients/users/Show.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
