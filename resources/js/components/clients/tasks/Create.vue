@@ -10,7 +10,7 @@
                                 <label class="pull-right text-sm">Title<i class="text-danger">*</i></label>
                             </div>
                             <div class="col-md-11">
-                                <input v-validate="'required|alpha_num'" v-model="task.name" class="form-control" name="name" dusk="name" placeholder="Name">
+                                <input v-validate="'required|alpha_spaces_num'" v-model="task.name" class="form-control" name="name" dusk="name" placeholder="Name">
                                 <ul class="list-group">
                                   <li class="list-group-item text-danger border-0" v-for="error in errors.collect('name')">{{ error }}</li>
                                 </ul>

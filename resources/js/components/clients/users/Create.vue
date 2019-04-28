@@ -9,7 +9,7 @@
                                 <label class="pull-right">Username<i class="text-danger">*</i></label>
                             </div>
                             <div class="col-md-6">
-                                <input v-validate="'required|alpha'" v-model="user.name" class="form-control" name="name" dusk="name" placeholder="Name">
+                                <input v-validate="'required|alpha_spaces'" v-model="user.name" class="form-control" name="name" dusk="name" placeholder="Name">
                                 <ul class="list-group">
                                   <li class="list-group-item text-danger border-0" v-for="error in errors.collect('name')">{{ error }}</li>
                                 </ul>
@@ -20,7 +20,7 @@
                                 <label class="pull-right">Email<i class="text-danger">*</i></label>
                             </div>
                             <div class="col-md-6">
-                                <input v-validate.continues="'required|email|max:20'" v-model="user.email" class="form-control" name="email" dusk="key" placeholder="email">
+                                <input v-validate.continues="'required|email|max:255'" v-model="user.email" class="form-control" name="email" dusk="key" placeholder="email">
                                 <ul class="list-group">
                                   <li class="list-group-item text-danger border-0" v-for="error in errors.collect('email')">{{ error }}</li>
                                 </ul>
@@ -40,6 +40,17 @@
                             </div>
                             <div class="col-md-6">
                                 <input type="password" v-validate.continues="'required|max:255'" v-model="user.password" class="form-control" name="password" dusk="password" placeholder="password">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-2">
+                                <label class="pull-right">Confirm Password</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="password" v-validate.continues="'required|max:255'" v-model="user.password_confirmation" class="form-control" name="password_confirmation" dusk="password_confirmation" placeholder="password confirmation">
+                                <ul class="list-group">
+                                  <li class="list-group-item text-danger border-0" v-for="error in errors.collect('password')">{{ error }}</li>
+                                </ul>
                             </div>
                         </div>
                     </div>

@@ -9,7 +9,7 @@
                                 <label class="pull-right">Name<i class="text-danger">*</i></label>
                             </div>
                             <div class="col-md-6">
-                                <input v-validate="'required|alpha'" v-model="project.name" class="form-control" name="name" dusk="name" placeholder="Name">
+                                <input v-validate="'required|alpha_spaces'" v-model="project.name" class="form-control" name="name" dusk="name" placeholder="Name">
                                 <ul class="list-group">
                                   <li class="list-group-item text-danger border-0" v-for="error in errors.collect('name')">{{ error }}</li>
                                 </ul>
@@ -20,7 +20,7 @@
                                 <label class="pull-right">Key<i class="text-danger">*</i></label>
                             </div>
                             <div class="col-md-6">
-                                <input v-validate.continues="'required|alpha|max:20'" v-model="project.key" class="form-control" name="key" dusk="key" placeholder="Project Identifire">
+                                <input v-validate.continues="'required|alpha_spaces|max:20'" v-model="project.key" class="form-control" name="key" dusk="key" placeholder="Project Identifire">
                                 <ul class="list-group">
                                   <li class="list-group-item text-danger border-0" v-for="error in errors.collect('key')">{{ error }}</li>
                                 </ul>

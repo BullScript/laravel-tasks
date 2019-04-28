@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\ProjectUniqueKeyNameRule;
+use Illuminate\Validation\Rule;
 
 class SaveUserRequest extends FormRequest
 {
@@ -25,9 +26,13 @@ class SaveUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|alpha_dash|max:255',
-            'key' => ['required', 'alpha_dash', 'max:20', new ProjectUniqueKeyNameRule()],
-            'url' => 'url|max:255'
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255',
+                Rule::unique('users')->ignore($this->id)->where(function ($query) {
+                    return $query->where('client_id', auth()->user()->client_id);
+                })
+            ],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
 }

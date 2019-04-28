@@ -2,10 +2,12 @@
 
 namespace App\Models\Users;
 
+use App\Models\Profiles\Profile;
+
 trait UserRelationship {
 
-    public function fetchPaginateUsers($request)
+    public function profile()
     {
-        return User::paginate()->all();
+        return $this->belongsTo(Profile::class);
     }
 }

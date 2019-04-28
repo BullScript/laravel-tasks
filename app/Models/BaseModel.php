@@ -3,9 +3,9 @@ namespace App\Models;
 
 use App\Scopes\ClientScope;
 use App\Observers\BaseModelObserve;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class BaseModel extends Authenticatable
+class BaseModel extends Model
 {
 
     /**
