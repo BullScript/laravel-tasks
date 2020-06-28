@@ -1,12 +1,21 @@
 {
-    "name": "laravel/laravel",
-    "type": "project",
-    "description": "The Laravel Framework.",
+    "name": "bullscript/laravel-tasks",
+    "type": "library",
+    "description": "laravel-tasks is a Project(tasks) Management System.",
     "keywords": [
-        "framework",
-        "laravel"
+        "laravel",
+        "tasks",
+        "project"
     ],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Swapnil Aherrao",
+            "email": "swapnil.1512@gmail.com",
+            "homepage": "http://laravel-tasks.com",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "php": "^7.1.3",
         "binarytorch/larecipe": "^1.4",
